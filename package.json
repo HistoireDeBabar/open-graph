@@ -4,7 +4,8 @@
   "description": "An OpenGraph package for scrapping meta data.",
   "main": "index.js",
   "directories": {
-    "test": "test"
+    "test": "test",
+    "src": "src"
   },
   "scripts": {
     "test": "gulp test"
@@ -16,9 +17,14 @@
     "node"
   ],
   "author": "HistoireDeBabar",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:HistoireDeBabar/open-graph.git"
+  },
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.4.1",
+    "eslint-config-airbnb": "^3.1.0",
     "gulp": "^3.9.0",
     "gulp-eslint": "^1.1.1",
     "gulp-mocha": "^2.2.0",
