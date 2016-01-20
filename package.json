@@ -1,0 +1,28 @@
+{
+  "name": "open-graph",
+  "version": "1.0.0",
+  "description": "An OpenGraph package for scrapping meta data.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "keywords": [
+    "open-graph",
+    "open",
+    "graph",
+    "node"
+  ],
+  "author": "HistoireDeBabar",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^1.1.1",
+    "gulp-mocha": "^2.2.0",
+    "gulp-sequence": "^0.4.4",
+    "gulp-util": "^3.0.7"
+  }
+}
