@@ -69,6 +69,40 @@ describe('OpenGraph', function() {
         done();
       });
     });
+
+    it ('replaces http with https', function(done) {
+      var mockResponse = {
+        on: (func, callback) => {
+          if (func === 'data') {
+            for (var i = 0; i < 10; i ++) {
+              callback(new Buffer('hello' + i));
+            }
+          }
+          if (func === 'end') {
+            callback();
+          }
+        },
+      }
+      var httpRequest = {
+        on: (func) => {},
+      };
+      var options = {
+        httpClient: {
+          get: (url, callback) => {
+            if (url.indexOf('https') !== -1) {
+              throw new Error('Fail');
+            }
+            callback(mockResponse);
+            return httpRequest;
+          },
+        },
+      };
+      openGraph(options).get('https://www.test.com', function(err, result) {
+        expect(result.length).to.eql(10);
+        expect(result[0]).to.be.an.instanceof(Buffer);
+        done();
+      });
+    });
   });
 
   describe('transform', function() {

@@ -1,6 +1,13 @@
 const http = require('http');
+
+// Constant fields.
 const ogProperty = 'og:';
 const quote = '"';
+const httpsProtocol = 'https';
+const httpProtocol = 'http';
+
+// Error messages.
+const noUrl = 'No Url Defined';
 
 /**
  * Makes an Http request to a given url and
@@ -9,11 +16,12 @@ const quote = '"';
 const get = (url, options, callback) => {
   const httpClient = options.httpClient || http;
   if (!url) {
-    callback(new Error('No Url Defined'));
+    callback(new Error(noUrl));
     return;
   }
+  const safeUrl = url.replace(httpsProtocol, httpProtocol);
   const results = [];
-  const request = httpClient.get(url, (res) => {
+  const request = httpClient.get(safeUrl, (res) => {
     res.on('data', (chunk) => {
       results.push(chunk);
     });
