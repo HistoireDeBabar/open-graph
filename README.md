@@ -7,7 +7,7 @@ more about Open Graph see here: [opg.me](http://ogp.me).
 
 Common meta data are things such as title, type, image and url.
 
-###### Installation
+##### Installation
 
     npm install --save open-graph
 
@@ -25,7 +25,7 @@ The callback returns a meta data javascript literal object in its first
 parameter.  If an error occured or no meta data was found, meta will be
 an empty javascript literal object.
 
-###### Response
+##### Response
 
 A typical and basic response will look like this:
 
