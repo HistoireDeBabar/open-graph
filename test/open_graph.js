@@ -39,6 +39,20 @@ describe('OpenGraph', function() {
       });
     });
 
+    it ('returns error if http get throws error (can no non url inputs)', function(done) {
+      var options = {
+        httpClient: {
+          get: (params, callback) => {
+            throw new Error('Error');
+          },
+        },
+      };
+      openGraph(options).get('nf0f8s', function(err, result) {
+        expect(err.message).to.eql('Error');
+        done();
+      });
+    });
+
     it ('returns an array of buffer arrays from the url containing the data', function(done) {
       var mockResponse = {
         on: (func, callback) => {
@@ -192,7 +206,6 @@ describe('OpenGraph', function() {
         },
       };
       openGraph(options).process('http://www.test.com', function(result) {
-          console.log(result);
         expect(result.title).to.eql('The Rock');
         expect(result.url).to.eql('http://www.imdb.com/title/tt0117500/');
         done();

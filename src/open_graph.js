@@ -23,17 +23,22 @@ const get = (url, options, callback) => {
   }
   const safeUrl = url.replace(httpsProtocol, httpProtocol);
   const results = [];
-  const request = httpClient.get(safeUrl, (res) => {
-    res.on('data', (chunk) => {
-      results.push(chunk);
+
+  try {
+    httpClient.get(safeUrl, (res) => {
+      res.on('data', (chunk) => {
+        results.push(chunk);
+      });
+      res.on('end', () => {
+        callback(undefined, results);
+      });
+    }).on('error', (e) => {
+      callback(e);
     });
-    res.on('end', () => {
-      callback(undefined, results);
-    });
-  });
-  request.on('error', (e) => {
+  }
+  catch (e) {
     callback(e);
-  });
+  }
 };
 
 
