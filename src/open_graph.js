@@ -35,8 +35,7 @@ const get = (url, options, callback) => {
     }).on('error', (e) => {
       callback(e);
     });
-  }
-  catch (e) {
+  } catch (e) {
     callback(e);
   }
 };
