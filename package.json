@@ -1,5 +1,5 @@
 {
-  "name": "open-graph",
+  "name": "open-graph-collector",
   "version": "1.0.0",
   "description": "An OpenGraph package for scrapping meta data.",
   "main": "index.js",

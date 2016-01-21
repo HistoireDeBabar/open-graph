@@ -9,11 +9,11 @@ Common meta data are things such as title, type, image and url.
 
 ###### Installation
 
-    npm install --save open-graph
+    npm install --save open-graph-collector
 
 ##### Usage
 
-    var openGraph = require('open-graph');
+    var openGraph = require('open-graph-collector');
 
     openGraph('http://www.neogaf.com/forum/', (meta) => {
       console.log(meta);
