@@ -3,6 +3,7 @@ var eslint = require('gulp-eslint');
 var mocha = require('gulp-mocha');
 var gulpSequence = require('gulp-sequence');
 var util = require('gulp-util');
+var babel = require('gulp-babel');
 
 gulp.task('lint', function () {
   // ESLint ignores files with "node_modules" paths.
@@ -21,6 +22,13 @@ gulp.task('lint', function () {
   .pipe(eslint.failAfterError());
 });
 
+
+gulp.task('build', function () {
+  return gulp.src('./src/open_graph.js')
+    .pipe(babel())
+    .pipe(gulp.dest('dist'));
+});
+
 gulp.task('test-runner', function() {
   return gulp.src(['test/**/*.js'], { read: false })
     .pipe(mocha({ reporter: 'spec' }))
@@ -30,6 +38,6 @@ gulp.task('test-runner', function() {
 gulp.task('test',gulpSequence('lint','test-runner'));
 
 
-gulp.task('default', ['lint'], function () {
+gulp.task('default', ['build'], function () {
 // This will only run if the lint task is successful...
 });

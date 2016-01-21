@@ -29,7 +29,7 @@ an empty javascript literal object.
 
 A typical and basic response will look like this:
 
-    { 
+    {
       site_name: 'NeoGAF',
       type: 'website',
       image: 'http://www.neogaf.com/forum/images/neogaf2/icon_social.png',
@@ -52,3 +52,22 @@ the html offers.  An embedded object may look like:
       url: 'http://www.neogaf.com/',
     }
 
+##### Dependencies
+
+Once cloned/forked run:
+
+    npm install
+
+Install gulp globally to run the gulp task runners
+
+    npm install -g gulp
+
+##### Build
+
+To build the project run gulp default:
+
+    $ gulp
+
+Furthermore, to test the project run:
+
+    $ gulp test

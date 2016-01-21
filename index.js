@@ -1,3 +1,3 @@
-const openGraph = require('./src/open_graph.js');
+const openGraph = require('./dist/open_graph.js');
 
 module.exports = openGraph().process;
