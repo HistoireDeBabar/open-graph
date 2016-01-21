@@ -19,33 +19,36 @@ Common meta data are things such as title, type, image and url.
       console.log(meta);
     });
 
-In the result that there is an error or no open graph found on the provided
-url then an empty json literal object will be returned in the callback.
+The function takes a url and a callback.
+
+The callback returns a meta data javascript literal object in its first
+parameter.  If an error occured or no meta data was found, meta will be
+an empty javascript literal object.
 
 ###### Response
 
 A typical and basic response will look like this:
 
-  {
-    site_name: 'NeoGAF',
-    type: 'website',
-    image: 'http://www.neogaf.com/forum/images/neogaf2/icon_social.png',
-    title: 'NeoGAF',
-    url: 'http://www.neogaf.com/'
-  }
+    { 
+      site_name: 'NeoGAF',
+      type: 'website',
+      image: 'http://www.neogaf.com/forum/images/neogaf2/icon_social.png',
+      title: 'NeoGAF',
+      url: 'http://www.neogaf.com/'
+    }
 
 However, object could also be embedded, depending on how much information
 the html offers.  An embedded object may look like:
 
-  {
-    site_name: 'NeoGAF',
-    type: 'website',
-    image: {
-      url: 'http://www.neogaf.com/forum/images/neogaf2/icon_social.png',
-      width: '300',
-      height: '300',
-    },
-    title: 'NeoGAF',
-    url: 'http://www.neogaf.com/',
-  }
+    {
+      site_name: 'NeoGAF',
+      type: 'website',
+      image: {
+        url: 'http://www.neogaf.com/forum/images/neogaf2/icon_social.png',
+        width: '300',
+        height: '300',
+      },
+      title: 'NeoGAF',
+      url: 'http://www.neogaf.com/',
+    }
 
