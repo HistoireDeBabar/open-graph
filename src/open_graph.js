@@ -1,3 +1,5 @@
+'strict';
+
 const http = require('http');
 
 // Constant fields.
@@ -52,6 +54,24 @@ const transform = (data, callback) => {
   return;
 };
 
+
+/**
+ * Recursively adds items to a javascript object
+ * from an array.
+ */
+const objectMapper = (keys, route, value, count) => {
+  const object = route;
+  const counter = count || 0;
+  const current = object[keys[counter]] || {};
+  if (counter === (keys.length - 1)) {
+    object[keys[counter]] = value;
+    return;
+  }
+  object[keys[counter]] = current;
+  const next = counter + 1;
+  objectMapper(keys, current, value, next);
+};
+
 /**
  * Recursivley trawls through html adding
  * og (open graph) property values to a js literal object.
@@ -75,7 +95,13 @@ const split = (html, callback, result) => {
   const valueStart = keyCut.slice(valueStartIndex + 1);
   const valueEnd = valueStart.indexOf(quote);
   const value = valueStart.slice(0, valueEnd);
-  openGraphData[key] = value;
+
+  if (key.indexOf(':') !== -1) {
+    const keys = key.split(':');
+    objectMapper(keys, openGraphData, value);
+  } else {
+    openGraphData[key] = value;
+  }
 
   // Gets the end of the string in comparison to
   // the original html.

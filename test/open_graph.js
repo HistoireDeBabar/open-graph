@@ -127,11 +127,13 @@ describe('OpenGraph', function() {
     });
 
     it('can split a string into a key value og object with multiple objects', function(done) {
-      var testCase = '<meta property="og:title" content="The Rock"> <meta property="og:url" content="http://www.imdb.com/title/tt0117500/">';
+      var testCase = '<meta property="og:title" content="The Rock"> <meta property="og:url" content="http://www.imdb.com/title/tt0117500/">, <meta property="og:image:width" content="300px"> <meta property="og:image:height" content="300" />';
       var subject = openGraph();
       subject.split(testCase, function(result){
         expect(result.title).to.eql('The Rock');
         expect(result.url).to.eql('http://www.imdb.com/title/tt0117500/');
+        expect(result.image.width).to.eql('300px');
+        expect(result.image.height).to.eql('300');
         done();
       });
     });
@@ -190,6 +192,7 @@ describe('OpenGraph', function() {
         },
       };
       openGraph(options).process('http://www.test.com', function(result) {
+          console.log(result);
         expect(result.title).to.eql('The Rock');
         expect(result.url).to.eql('http://www.imdb.com/title/tt0117500/');
         done();
