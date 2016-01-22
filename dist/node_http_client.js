@@ -8,17 +8,21 @@ var httpMethod = 'GET';
 // Error messages.
 var noUrl = 'No Url Defined';
 
+/**
+ * Given a url build the request paramaters.
+ */
 var buildRequestParams = function buildRequestParams(url) {
-  var safeUrl = url.replace(httpProtocol, '').replace(httpsProtocol, '');
-  var pathArray = [];
   var request = {
     method: httpMethod,
     withCredentials: false
   };
 
-  pathArray = safeUrl.split('/');
+  var safeUrl = url.replace(httpProtocol, '').replace(httpsProtocol, '');
+
+  var pathArray = safeUrl.split('/');
   request.host = pathArray[0];
-  if (pathArray.length > 1) {
+
+  if (pathArray.length > 1 && pathArray[1] !== '') {
     request.path = '/' + pathArray[1] + '/';
   }
   return request;
