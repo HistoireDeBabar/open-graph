@@ -1,44 +1,18 @@
 'use strict';
 'strict';
 
-var http = require('http');
-
 // Constant fields.
+
 var ogProperty = 'og:';
 var quote = '"';
-var httpsProtocol = 'https';
-var httpProtocol = 'http';
-
-// Error messages.
-var noUrl = 'No Url Defined';
 
 /**
  * Makes an Http request to a given url and
  * returns the data in a buffer array.
  */
 var _get = function _get(url, options, callback) {
-  var httpClient = options.httpClient || http;
-  if (!url) {
-    callback(new Error(noUrl));
-    return;
-  }
-  var safeUrl = url.replace(httpsProtocol, httpProtocol);
-  var results = [];
-
-  try {
-    httpClient.get(safeUrl, function (res) {
-      res.on('data', function (chunk) {
-        results.push(chunk);
-      });
-      res.on('end', function () {
-        callback(undefined, results);
-      });
-    }).on('error', function (e) {
-      callback(e);
-    });
-  } catch (e) {
-    callback(e);
-  }
+  var httpClient = options.httpClient;
+  httpClient.get(url, callback);
 };
 
 /**

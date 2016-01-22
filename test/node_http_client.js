@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var nodeHttpClient = require('../src/node_http.js');
+var nodeHttpClient = require('../src/node_http_client.js');
 
 describe('httpClient', function() {
   describe('get', function() {
@@ -102,8 +102,8 @@ describe('httpClient', function() {
       };
       var options = {
         httpClient: {
-          get: (url, callback) => {
-            if (url.indexOf('https') !== -1) {
+          get: (params, callback) => {
+            if (params.host.indexOf('https') !== -1) {
               throw new Error('Fail');
             }
             callback(mockResponse);
@@ -114,6 +114,62 @@ describe('httpClient', function() {
       nodeHttpClient(options).get('https://www.test.com', function(err, result) {
         expect(result.length).to.eql(10);
         expect(result[0]).to.be.an.instanceof(Buffer);
+        done();
+      });
+    });
+
+    it ('builds request params', function(done) {
+      var actualParams;
+      var mockResponse = {
+        on: (func, callback) => {
+          callback();
+        },
+      }
+      var httpRequest = {
+        on: (func) => {},
+      };
+      var options = {
+        httpClient: {
+          get: (params, callback) => {
+            actualParams = params;
+            callback(mockResponse);
+            return httpRequest;
+          },
+        },
+      };
+      nodeHttpClient(options).get('https://www.test.com/test', function(err, result) {
+        expect(actualParams.host).to.eql('www.test.com');
+        expect(actualParams.path).to.eql('/test/');
+        expect(actualParams.withCredentials).to.eql(false);
+        expect(actualParams.method).to.eql('GET');
+        done();
+      });
+    });
+
+    it ('builds request with empty path', function(done) {
+      var actualParams;
+      var mockResponse = {
+        on: (func, callback) => {
+          callback();
+        },
+      }
+      var httpRequest = {
+        on: (func) => {},
+      };
+      var options = {
+        httpClient: {
+          get: (params, callback) => {
+            actualParams = params;
+            callback(mockResponse);
+            return httpRequest;
+          },
+        },
+      };
+      nodeHttpClient(options).get('http://www.test.com/', function(err, result) {
+        expect(actualParams.host).to.eql('www.test.com');
+        expect(actualParams.path).to.eql(undefined);
+        expect(actualParams.withCredentials).to.eql(false);
+        expect(actualParams.method).to.eql('GET');
         done();
       });
     });

@@ -1,6 +1,6 @@
 {
   "name": "open-graph-collector",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An OpenGraph package for scrapping meta data.",
   "main": "index.js",
   "directories": {

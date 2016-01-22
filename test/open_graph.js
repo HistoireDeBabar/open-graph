@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 var openGraph = require('../src/open_graph.js');
-var nodeHttpClient = require('../src/node_http.js');
+var nodeHttpClient = require('../src/node_http_client.js');
 
 describe('OpenGraph', function() {
 

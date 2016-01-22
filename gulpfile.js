@@ -24,7 +24,7 @@ gulp.task('lint', function () {
 
 
 gulp.task('build', function () {
-  return gulp.src('./src/open_graph.js')
+  return gulp.src('./src/*.js')
     .pipe(babel())
     .pipe(gulp.dest('dist'));
 });
