@@ -1,43 +1,17 @@
 'strict';
 
-const http = require('http');
 
 // Constant fields.
 const ogProperty = 'og:';
 const quote = '"';
-const httpsProtocol = 'https';
-const httpProtocol = 'http';
-
-// Error messages.
-const noUrl = 'No Url Defined';
 
 /**
  * Makes an Http request to a given url and
  * returns the data in a buffer array.
  */
 const get = (url, options, callback) => {
-  const httpClient = options.httpClient || http;
-  if (!url) {
-    callback(new Error(noUrl));
-    return;
-  }
-  const safeUrl = url.replace(httpsProtocol, httpProtocol);
-  const results = [];
-
-  try {
-    httpClient.get(safeUrl, (res) => {
-      res.on('data', (chunk) => {
-        results.push(chunk);
-      });
-      res.on('end', () => {
-        callback(undefined, results);
-      });
-    }).on('error', (e) => {
-      callback(e);
-    });
-  } catch (e) {
-    callback(e);
-  }
+  const httpClient = options.httpClient;
+  httpClient.get(url, callback);
 };
 
 
