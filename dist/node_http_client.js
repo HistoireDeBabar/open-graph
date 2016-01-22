@@ -4,6 +4,7 @@ var http = require('http');
 var httpProtocol = 'http://';
 var httpsProtocol = 'https://';
 var httpMethod = 'GET';
+var allAccess = '*';
 
 // Error messages.
 var noUrl = 'No Url Defined';
@@ -14,7 +15,10 @@ var noUrl = 'No Url Defined';
 var buildRequestParams = function buildRequestParams(url) {
   var request = {
     method: httpMethod,
-    withCredentials: false
+    withCredentials: false,
+    headers: {
+      'Access-Control-Allow-Origin': allAccess
+    }
   };
 
   var safeUrl = url.replace(httpProtocol, '').replace(httpsProtocol, '');

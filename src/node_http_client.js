@@ -2,6 +2,7 @@ const http = require('http');
 const httpProtocol = 'http://';
 const httpsProtocol = 'https://';
 const httpMethod = 'GET';
+const allAccess = '*';
 
 // Error messages.
 const noUrl = 'No Url Defined';
@@ -13,6 +14,9 @@ const buildRequestParams = (url) => {
   const request = {
     method: httpMethod,
     withCredentials: false,
+    headers: {
+      'Access-Control-Allow-Origin': allAccess,
+    },
   };
 
   const safeUrl = url.replace(httpProtocol, '').replace(httpsProtocol, '');
