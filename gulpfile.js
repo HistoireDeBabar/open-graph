@@ -3,7 +3,6 @@ var eslint = require('gulp-eslint');
 var mocha = require('gulp-mocha');
 var gulpSequence = require('gulp-sequence');
 var util = require('gulp-util');
-var babel = require('gulp-babel');
 
 gulp.task('lint', function () {
   // ESLint ignores files with "node_modules" paths.
@@ -20,13 +19,6 @@ gulp.task('lint', function () {
   // To have the process exit with an error code (1) on
   // lint error, return the stream and pipe to failAfterError last.
   .pipe(eslint.failAfterError());
-});
-
-
-gulp.task('build', function () {
-  return gulp.src('./src/*.js')
-    .pipe(babel())
-    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('test-runner', function() {
