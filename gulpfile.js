@@ -30,6 +30,6 @@ gulp.task('test-runner', function() {
 gulp.task('test',gulpSequence('lint','test-runner'));
 
 
-gulp.task('default', ['build'], function () {
+gulp.task('default', ['test'], function () {
 // This will only run if the lint task is successful...
 });

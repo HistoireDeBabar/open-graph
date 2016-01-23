@@ -64,10 +64,6 @@ Install gulp globally to run the gulp task runners
 
 ##### Build
 
-To build the project run gulp default:
+To test the project run:
 
-    $ gulp
-
-Furthermore, to test the project run:
-
-    $ gulp test
+    $ gulp  or $ gulp test
