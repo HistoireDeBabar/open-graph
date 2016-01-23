@@ -1,3 +1,4 @@
+// Constant Fields
 const http = require('http');
 const httpProtocol = 'http://';
 const httpsProtocol = 'https://';

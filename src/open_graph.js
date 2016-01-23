@@ -1,6 +1,3 @@
-'strict';
-
-
 // Constant fields.
 const ogProperty = 'og:';
 const quote = '"';
@@ -47,7 +44,6 @@ const objectMapper = (keys, route, value, count) => {
     object[keys[counter]] = value;
     return;
   }
-  console.log(object);
   object[keys[counter]] = current;
   const next = counter + 1;
   objectMapper(keys, current, value, next);
