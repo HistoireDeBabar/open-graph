@@ -4,6 +4,8 @@
 // Constant fields.
 const ogProperty = 'og:';
 const quote = '"';
+const metaTag = '<meta ';
+const metaClose = '>';
 
 /**
  * Makes an Http request to a given url and
@@ -50,6 +52,29 @@ const objectMapper = (keys, route, value, count) => {
   objectMapper(keys, current, value, next);
 };
 
+
+/**
+ * Filters the htmls to only returns values of
+ * the meta tags tags as a concatenated string.
+ */
+const filter = (html, callback, tagConcat) => {
+  const metaIndex = html.indexOf(metaTag);
+  if (metaIndex === -1) {
+    callback(tagConcat || '');
+    return;
+  }
+
+  const tagStart = html.slice(metaIndex);
+  const tagEnd = tagStart.indexOf(metaClose);
+  const meta = tagStart.slice(metaTag.length, tagEnd);
+  const result = (tagConcat || '') + meta;
+
+  const end = metaIndex + tagEnd + 1;
+  const newHtml = html.slice(end);
+  filter(newHtml, callback, result);
+  return;
+};
+
 /**
  * Recursivley trawls through html adding
  * og (open graph) property values to a js literal object.
@@ -66,7 +91,7 @@ const split = (html, callback, result) => {
   // <meta property="og:title" content="The Rock">
   const keyStart = html.slice(og);
   const keyEnd = keyStart.indexOf(quote);
-  const key = keyStart.slice(3, keyEnd);
+  const key = keyStart.slice(ogProperty.length, keyEnd);
 
   const keyCut = html.slice(og + keyEnd + 1);
   const valueStartIndex = keyCut.indexOf(quote);
@@ -102,8 +127,11 @@ const OpenGraph = (dependencies) => {
     transform: (data, callback) => {
       transform(data, callback);
     },
-    split: (html, callback) => {
-      split(html, callback);
+    filter: (html, callback) => {
+      filter(html, callback);
+    },
+    split: (meta, callback) => {
+      split(meta, callback);
     },
     process: (url, doneCallback) => {
       get(url, options, (err, data) => {
@@ -112,7 +140,9 @@ const OpenGraph = (dependencies) => {
           return;
         }
         transform(data, (html) => {
-          split(html, doneCallback);
+          filter(html, (meta) => {
+            split(meta, doneCallback);
+          });
         });
       });
     },

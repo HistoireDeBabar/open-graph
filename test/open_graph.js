@@ -101,4 +101,25 @@ describe('OpenGraph', function() {
       });
     });
   });
+
+  describe('filter', function() {
+
+    it('returns a contatenated string of only meta data properties', function(done) {
+      var metaString = '<meta property="og:title" content="The Rock"> <meta property="og:url" content="http://www.imdb.com/title/tt0117500/">, <meta property="og:image:width" content="300px"> <meta property="og:image:height" content="300" />';
+      var expectedString = 'property="og:title" content="The Rock"property="og:url" content="http://www.imdb.com/title/tt0117500/"property="og:image:width" content="300px"property="og:image:height" content="300" /';
+      var subject = openGraph();
+      subject.filter('<html>' + metaString + '</html>', function(result) {
+       expect(result).to.eql(expectedString);
+       done();
+      });
+    });
+
+    it('returns an empty string is no meta data is in the html', function(done) {
+      var subject = openGraph();
+      subject.filter('<html></html>', function(result) {
+        expect(result).to.eql('');
+        done();
+      });
+    });
+  });
 });
