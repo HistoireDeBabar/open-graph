@@ -1,3 +1,5 @@
+'use strict';
+
 // Constant fields.
 const ogProperty = 'og:';
 const quote = '"';

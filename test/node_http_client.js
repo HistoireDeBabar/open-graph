@@ -1,3 +1,5 @@
+'use strict';
+
 var expect = require('chai').expect;
 var nodeHttpClient = require('../src/node_http_client.js');
 

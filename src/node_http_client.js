@@ -1,3 +1,5 @@
+'use strict';
+
 // Constant Fields
 const http = require('http');
 const httpProtocol = 'http://';
